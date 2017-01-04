@@ -42,6 +42,16 @@ variable "service_conf_dest" {
     }
 }
 
+variable "public_key_path" {
+  description = "Path to file containing public key"
+  default     = "~/.ssh/gcloud_id_rsa.pub"
+}
+
+variable "private_key_path" {
+  description = "Path to file containing private key"
+  default     = "~/.ssh/gcloud_id_rsa"
+}
+
 variable "region" {
     default     = "us-central1"
     description = "The region of Google Cloud where to launch the cluster"
