@@ -33,7 +33,7 @@ resource "google_compute_instance" "consul" {
         
          connection {
             type        = "ssh"
-            user        = "root"
+            user        = "${var.user}"
             private_key = "${file("${var.private_key_path}")}"
             agent       = false
         }
@@ -43,7 +43,7 @@ resource "google_compute_instance" "consul" {
         
         connection {
             type        = "ssh"
-            user        = "root"
+            user        = "${var.user}"
             private_key = "${file("${var.private_key_path}")}"
             agent       = false
         }
@@ -58,7 +58,7 @@ resource "google_compute_instance" "consul" {
         
         connection {
             type        = "ssh"
-            user        = "root"
+            user        = "${var.user}"
             private_key = "${file("${var.private_key_path}")}"
             agent       = false
         }
