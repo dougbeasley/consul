@@ -23,11 +23,6 @@ resource "google_compute_instance" "consul" {
         scopes = ["https://www.googleapis.com/auth/compute.readonly"]
     }
 
-    connection {
-        user        = "${lookup(var.user, var.platform)}"
-        private_key = "${file("${var.key_path}")}"
-    }
-
     provisioner "file" {
         source      = "${path.module}/../shared/scripts/${lookup(var.service_conf, var.platform)}"
         destination = "/tmp/${lookup(var.service_conf_dest, var.platform)}"
