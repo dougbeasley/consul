@@ -42,10 +42,6 @@ variable "service_conf_dest" {
     }
 }
 
-variable "key_path" {
-    description = "Path to the private key used to access the cloud servers"
-}
-
 variable "region" {
     default     = "us-central1"
     description = "The region of Google Cloud where to launch the cluster"
