@@ -47,7 +47,7 @@ resource "google_compute_instance" "consul" {
     provisioner "remote-exec" {
         inline = [
             "echo ${var.servers} > /tmp/consul-server-count",
-            "echo ${google_compute_instance.consul.0.network_interface.0.address} > /tmp/consul-server-addr",
+            "echo ${google_compute_instance.consul.network.network_interface.0.address} > /tmp/consul-server-addr",
         ]
     }
 
