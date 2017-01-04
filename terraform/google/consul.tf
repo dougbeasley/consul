@@ -20,7 +20,7 @@ resource "google_compute_instance" "consul" {
     }
 
     metadata {
-        ssh-keys = "root:${file("${var.public_key_path}")}"
+        ssh-keys = "${lookup(var.user, var.platform)}:${file("${var.public_key_path}")}"
     }
 
     service_account {
