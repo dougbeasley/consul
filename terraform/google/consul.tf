@@ -19,6 +19,10 @@ resource "google_compute_instance" "consul" {
         }
     }
 
+    metadata {
+        ssh-keys = "root:${file("${var.public_key_path}")}"
+    }
+
     service_account {
         scopes = ["https://www.googleapis.com/auth/compute.readonly"]
     }
@@ -26,9 +30,24 @@ resource "google_compute_instance" "consul" {
     provisioner "file" {
         source      = "${path.module}/../shared/scripts/${lookup(var.service_conf, var.platform)}"
         destination = "/tmp/${lookup(var.service_conf_dest, var.platform)}"
+        
+         connection {
+            type        = "ssh"
+            user        = "root"
+            private_key = "${file("${var.private_key_path}")}"
+            agent       = false
+        }
     }
 
     provisioner "remote-exec" {
+        
+        connection {
+            type        = "ssh"
+            user        = "root"
+            private_key = "${file("${var.private_key_path}")}"
+            agent       = false
+        }
+
         inline = [
             "echo ${var.servers} > /tmp/consul-server-count",
             "echo ${google_compute_instance.consul.0.network_interface.0.address} > /tmp/consul-server-addr",
@@ -36,6 +55,14 @@ resource "google_compute_instance" "consul" {
     }
 
     provisioner "remote-exec" {
+        
+        connection {
+            type        = "ssh"
+            user        = "root"
+            private_key = "${file("${var.private_key_path}")}"
+            agent       = false
+        }
+
         scripts = [
             "${path.module}/../shared/scripts/install.sh",
             "${path.module}/../shared/scripts/service.sh",
