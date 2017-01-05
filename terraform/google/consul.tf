@@ -39,7 +39,7 @@ resource "google_compute_instance" "consul" {
 
     provisioner "remote-exec" {
         inline = [
-            "echo nameserver ${self.network_interface.0.address} >> /etc/resolvconf/resolv.conf.d/head",
+            "sudo echo nameserver ${self.network_interface.0.address} >> /etc/resolvconf/resolv.conf.d/head",
             "sudo resolvconf -u",
          ]
     }
